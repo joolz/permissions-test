@@ -14,6 +14,7 @@
 		value="View of model not permitted" />
 
 	<h:form>
+		<h:messages globalOnly="true" />
 
 		<ui:fragment rendered="#{fubarBean.viewPermitted}">
 			<h:outputText value="Total number of Foos #{fubarBean.foosCount}" />

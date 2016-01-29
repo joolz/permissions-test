@@ -36,20 +36,25 @@ public class FubarBean {
 	@PostConstruct
 	private void init() {
 		LOG.debug("PostConstruct");
+		LOG.debug("IRL also do permissionchecking when updating, deleting etc.");
 	}
 
 	public int getFoosCount() {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
 			return FooLocalServiceUtil.getFoosCount();
 		} catch (final SystemException e) {
 			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
 		}
 		return GetterUtil.DEFAULT_INTEGER;
 	}
 
 	private PermissionChecker getPermissionChecker() throws PrincipalException {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		final PermissionChecker permissionChecker = PermissionThreadLocal.getPermissionChecker();
 		if (permissionChecker == null) {
+			lfc.addGlobalErrorMessage("PermissionChecker not initialized");
 			throw new PrincipalException("PermissionChecker not initialized");
 		}
 		return permissionChecker;
@@ -72,31 +77,37 @@ public class FubarBean {
 	}
 
 	private boolean isPermitted(final String permission) {
-		LOG.debug("IRL also do permissionchecking when updating, deleting etc.");
-		boolean result = false;
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
+		boolean permitted = false;
 		try {
 			final PermissionChecker pc = getPermissionChecker();
-			result = pc.hasPermission(lfc.getScopeGroupId(), MODEL_NAME, lfc.getScopeGroupId(), permission);
+			permitted = pc.hasPermission(lfc.getScopeGroupId(), MODEL_NAME, lfc.getScopeGroupId(), permission);
 		} catch (final PrincipalException e) {
 			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
 		}
-		LOG.debug(permission + " permission for user " + lfc.getUser().getFullName() + " is " + result);
-		return result;
+
+		LOG.debug("Permission " + permission + " for user " + lfc.getUser().getFullName() + ", group "
+				+ lfc.getScopeGroupId() + " is " + permitted);
+
+		return permitted;
 	}
 
 	public List<Foo> getFoos() {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		List<Foo> result = new ArrayList<Foo>();
 		try {
 			result = FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount());
 		} catch (final SystemException e) {
 			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
 		}
 		LOG.debug("Got " + result.size() + " foos");
 		return result;
 	}
 
 	public String doUpdateFoos() {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
 			for (final Foo foo : FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount())) {
 				foo.setBooleanField(!foo.getBooleanField());
@@ -105,21 +116,25 @@ public class FubarBean {
 			}
 		} catch (final SystemException e) {
 			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
 		}
 		return null;
 	}
 
 	public String doDeleteFoos() {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		LOG.debug("Delete foos");
 		try {
 			FooLocalServiceUtil.deleteAll();
 		} catch (final SystemException e) {
 			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
 		}
 		return null;
 	}
 
 	public String doAddFoo() {
+
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
 			final Foo foo = FooLocalServiceUtil.createFoo(lfc.getCompanyId(), lfc.getScopeGroupId(), lfc.getUserId());
