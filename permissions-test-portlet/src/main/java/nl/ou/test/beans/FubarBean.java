@@ -97,7 +97,11 @@ public class FubarBean {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		List<Foo> result = new ArrayList<Foo>();
 		try {
-			result = FooLocalServiceUtil.getFoos(lfc.getScopeGroupId());
+			if (lfc.getScopeGroup().isGuest()) {
+				result = FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount());
+			} else {
+				result = FooLocalServiceUtil.getFoos(lfc.getScopeGroupId());
+			}
 		} catch (final SystemException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());
@@ -109,7 +113,13 @@ public class FubarBean {
 	public String doUpdateFoos() {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
-			for (final Foo foo : FooLocalServiceUtil.getFoos(lfc.getScopeGroupId())) {
+			final List<Foo> foos = new ArrayList<Foo>();
+			if (lfc.getScopeGroup().isGuest()) {
+				foos.addAll(FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount()));
+			} else {
+				foos.addAll(FooLocalServiceUtil.getFoos(lfc.getScopeGroupId()));
+			}
+			for (final Foo foo : foos) {
 				foo.setBooleanField(!foo.getBooleanField());
 				foo.setIntField(foo.getIntField() + 1);
 				FooLocalServiceUtil.updateFoo(foo);
@@ -125,7 +135,11 @@ public class FubarBean {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		LOG.debug("Delete foos");
 		try {
-			FooLocalServiceUtil.deleteAll(lfc.getScopeGroupId());
+			if (lfc.getScopeGroup().isGuest()) {
+				FooLocalServiceUtil.deleteAll();
+			} else {
+				FooLocalServiceUtil.deleteAll(lfc.getScopeGroupId());
+			}
 		} catch (final SystemException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());
@@ -134,7 +148,6 @@ public class FubarBean {
 	}
 
 	public String doAddFoo() {
-
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
 			final Foo foo = FooLocalServiceUtil.createFoo(lfc.getCompanyId(), lfc.getScopeGroupId(), lfc.getUserId());
