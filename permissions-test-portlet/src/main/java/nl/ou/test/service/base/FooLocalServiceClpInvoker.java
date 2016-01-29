@@ -69,6 +69,8 @@ public class FooLocalServiceClpInvoker {
     private String[] _methodParameterTypes60;
     private String _methodName61;
     private String[] _methodParameterTypes61;
+    private String _methodName62;
+    private String[] _methodParameterTypes62;
 
     public FooLocalServiceClpInvoker() {
         _methodName0 = "addFoo";
@@ -195,13 +197,17 @@ public class FooLocalServiceClpInvoker {
 
         _methodParameterTypes59 = new String[] {  };
 
-        _methodName60 = "getFoosCount";
+        _methodName60 = "deleteAll";
 
         _methodParameterTypes60 = new String[] { "long" };
 
-        _methodName61 = "getFoos";
+        _methodName61 = "getFoosCount";
 
         _methodParameterTypes61 = new String[] { "long" };
+
+        _methodName62 = "getFoos";
+
+        _methodParameterTypes62 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -365,11 +371,18 @@ public class FooLocalServiceClpInvoker {
 
         if (_methodName60.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-            return FooLocalServiceUtil.getFoosCount(((Long) arguments[0]).longValue());
+            FooLocalServiceUtil.deleteAll(((Long) arguments[0]).longValue());
+
+            return null;
         }
 
         if (_methodName61.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+            return FooLocalServiceUtil.getFoosCount(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName62.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
             return FooLocalServiceUtil.getFoos(((Long) arguments[0]).longValue());
         }
 

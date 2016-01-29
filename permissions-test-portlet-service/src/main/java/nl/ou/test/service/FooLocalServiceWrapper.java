@@ -341,6 +341,12 @@ public class FooLocalServiceWrapper implements FooLocalService,
     }
 
     @Override
+    public void deleteAll(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        _fooLocalService.deleteAll(groupId);
+    }
+
+    @Override
     public int getFoosCount(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return _fooLocalService.getFoosCount(groupId);

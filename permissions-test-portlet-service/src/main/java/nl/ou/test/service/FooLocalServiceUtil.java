@@ -325,6 +325,11 @@ public class FooLocalServiceUtil {
         getService().deleteAll();
     }
 
+    public static void deleteAll(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getService().deleteAll(groupId);
+    }
+
     public static int getFoosCount(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().getFoosCount(groupId);

@@ -107,10 +107,18 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 		fooPersistence.removeAll();
 	}
 
+	public void deleteAll(final long groupId) throws SystemException {
+		for (final Foo foo : fooPersistence.findBygroup(groupId)) {
+			fooPersistence.remove(foo);
+		}
+	}
+
+	@Override
 	public int getFoosCount(final long groupId) throws SystemException {
 		return fooPersistence.countBygroup(groupId);
 	}
 
+	@Override
 	public List<Foo> getFoos(final long groupId) throws SystemException {
 		return fooPersistence.findBygroup(groupId);
 	}

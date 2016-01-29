@@ -109,7 +109,7 @@ public class FubarBean {
 	public String doUpdateFoos() {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
-			for (final Foo foo : FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount())) {
+			for (final Foo foo : FooLocalServiceUtil.getFoos(lfc.getScopeGroupId())) {
 				foo.setBooleanField(!foo.getBooleanField());
 				foo.setIntField(foo.getIntField() + 1);
 				FooLocalServiceUtil.updateFoo(foo);
@@ -125,7 +125,7 @@ public class FubarBean {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		LOG.debug("Delete foos");
 		try {
-			FooLocalServiceUtil.deleteAll();
+			FooLocalServiceUtil.deleteAll(lfc.getScopeGroupId());
 		} catch (final SystemException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());

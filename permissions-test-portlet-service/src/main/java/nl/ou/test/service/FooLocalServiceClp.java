@@ -60,6 +60,8 @@ public class FooLocalServiceClp implements FooLocalService {
     private String[] _methodParameterTypes25;
     private String _methodName26;
     private String[] _methodParameterTypes26;
+    private String _methodName27;
+    private String[] _methodParameterTypes27;
 
     public FooLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -172,13 +174,17 @@ public class FooLocalServiceClp implements FooLocalService {
 
         _methodParameterTypes24 = new String[] {  };
 
-        _methodName25 = "getFoosCount";
+        _methodName25 = "deleteAll";
 
         _methodParameterTypes25 = new String[] { "long" };
 
-        _methodName26 = "getFoos";
+        _methodName26 = "getFoosCount";
 
         _methodParameterTypes26 = new String[] { "long" };
+
+        _methodName27 = "getFoos";
+
+        _methodParameterTypes27 = new String[] { "long" };
     }
 
     @Override
@@ -855,13 +861,35 @@ public class FooLocalServiceClp implements FooLocalService {
     }
 
     @Override
+    public void deleteAll(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        try {
+            _invokableLocalService.invokeMethod(_methodName25,
+                _methodParameterTypes25, new Object[] { groupId });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+    }
+
+    @Override
     public int getFoosCount(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName25,
-                    _methodParameterTypes25, new Object[] { groupId });
+            returnObj = _invokableLocalService.invokeMethod(_methodName26,
+                    _methodParameterTypes26, new Object[] { groupId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
@@ -886,8 +914,8 @@ public class FooLocalServiceClp implements FooLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName26,
-                    _methodParameterTypes26, new Object[] { groupId });
+            returnObj = _invokableLocalService.invokeMethod(_methodName27,
+                    _methodParameterTypes27, new Object[] { groupId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
