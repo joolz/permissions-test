@@ -89,15 +89,19 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 	@Override
 	public Foo deleteFoo(final long fooId) throws PortalException, SystemException {
 		final Foo result = super.deleteFoo(fooId);
-		try {
-			LOG.debug("Delete resoure for Foo " + result.getFooId());
-			resourceLocalService.deleteResource(result.getCompanyId(), Foo.class.getName(),
-					ResourceConstants.SCOPE_INDIVIDUAL, result.getFooId());
-		} catch (final PortalException e) {
-			LOG.error(e);
-		}
+		LOG.debug("Delete resoure for Foo " + result.getFooId());
+		resourceLocalService.deleteResource(result.getCompanyId(), Foo.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, result.getFooId());
 		return result;
 	}
 
+	@Override
+	public Foo updateFoo(final Foo foo) throws SystemException {
+		foo.setModifiedDate(new Date());
+		return super.updateFoo(foo);
+	}
 
+	public void deleteAll() throws SystemException {
+		fooPersistence.removeAll();
+	}
 }

@@ -291,4 +291,7 @@ public interface FooLocalService extends BaseLocalService, InvokableLocalService
 
     public nl.ou.test.model.Foo createFoo(long companyId, long groupId,
         long userId);
+
+    public void deleteAll()
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

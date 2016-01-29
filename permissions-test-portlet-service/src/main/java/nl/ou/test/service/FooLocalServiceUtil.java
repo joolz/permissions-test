@@ -320,6 +320,11 @@ public class FooLocalServiceUtil {
         return getService().createFoo(companyId, groupId, userId);
     }
 
+    public static void deleteAll()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getService().deleteAll();
+    }
+
     public static void clearService() {
         _service = null;
     }

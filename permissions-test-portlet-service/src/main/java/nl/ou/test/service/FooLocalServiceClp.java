@@ -54,6 +54,8 @@ public class FooLocalServiceClp implements FooLocalService {
     private String[] _methodParameterTypes21;
     private String _methodName23;
     private String[] _methodParameterTypes23;
+    private String _methodName24;
+    private String[] _methodParameterTypes24;
 
     public FooLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -161,6 +163,10 @@ public class FooLocalServiceClp implements FooLocalService {
         _methodName23 = "createFoo";
 
         _methodParameterTypes23 = new String[] { "long", "long", "long" };
+
+        _methodName24 = "deleteAll";
+
+        _methodParameterTypes24 = new String[] {  };
     }
 
     @Override
@@ -812,5 +818,27 @@ public class FooLocalServiceClp implements FooLocalService {
         }
 
         return (nl.ou.test.model.Foo) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public void deleteAll()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        try {
+            _invokableLocalService.invokeMethod(_methodName24,
+                _methodParameterTypes24, new Object[] {  });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
     }
 }

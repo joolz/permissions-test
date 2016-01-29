@@ -55,6 +55,16 @@ public class FooLocalServiceClpInvoker {
     private String[] _methodParameterTypes49;
     private String _methodName54;
     private String[] _methodParameterTypes54;
+    private String _methodName55;
+    private String[] _methodParameterTypes55;
+    private String _methodName56;
+    private String[] _methodParameterTypes56;
+    private String _methodName57;
+    private String[] _methodParameterTypes57;
+    private String _methodName58;
+    private String[] _methodParameterTypes58;
+    private String _methodName59;
+    private String[] _methodParameterTypes59;
 
     public FooLocalServiceClpInvoker() {
         _methodName0 = "addFoo";
@@ -160,6 +170,26 @@ public class FooLocalServiceClpInvoker {
         _methodName54 = "createFoo";
 
         _methodParameterTypes54 = new String[] { "long", "long", "long" };
+
+        _methodName55 = "addFoo";
+
+        _methodParameterTypes55 = new String[] { "nl.ou.test.model.Foo" };
+
+        _methodName56 = "deleteFoo";
+
+        _methodParameterTypes56 = new String[] { "nl.ou.test.model.Foo" };
+
+        _methodName57 = "deleteFoo";
+
+        _methodParameterTypes57 = new String[] { "long" };
+
+        _methodName58 = "updateFoo";
+
+        _methodParameterTypes58 = new String[] { "nl.ou.test.model.Foo" };
+
+        _methodName59 = "deleteAll";
+
+        _methodParameterTypes59 = new String[] {  };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -292,6 +322,33 @@ public class FooLocalServiceClpInvoker {
             return FooLocalServiceUtil.createFoo(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue(),
                 ((Long) arguments[2]).longValue());
+        }
+
+        if (_methodName55.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+            return FooLocalServiceUtil.addFoo((nl.ou.test.model.Foo) arguments[0]);
+        }
+
+        if (_methodName56.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+            return FooLocalServiceUtil.deleteFoo((nl.ou.test.model.Foo) arguments[0]);
+        }
+
+        if (_methodName57.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+            return FooLocalServiceUtil.deleteFoo(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName58.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+            return FooLocalServiceUtil.updateFoo((nl.ou.test.model.Foo) arguments[0]);
+        }
+
+        if (_methodName59.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+            FooLocalServiceUtil.deleteAll();
+
+            return null;
         }
 
         throw new UnsupportedOperationException();

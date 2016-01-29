@@ -10,8 +10,88 @@
 <h:head />
 
 <h:body>
-	<h:outputText rendered="#{fubarBean.viewPermitted}" value="Total number of Foo's: #{fubarBean.someValue}" />
-	<h:outputText rendered="#{not fubarBean.viewPermitted}" value="View of model not permitted" />
+	<h:outputText rendered="#{not fubarBean.viewPermitted}"
+		value="View of model not permitted" />
+
+	<h:form>
+
+		<ui:fragment rendered="#{fubarBean.viewPermitted}">
+			<h:outputText value="Total number of Foos #{fubarBean.foosCount}" />
+			<h:dataTable value="#{fubarBean.foos}" var="foo">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="fooId" />
+					</f:facet>
+					<h:outputText value="#{foo.fooId}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="stringField" />
+					</f:facet>
+					<h:outputText value="#{foo.stringField}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="booleanField" />
+					</f:facet>
+					<h:outputText value="#{foo.booleanField}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="intField" />
+					</f:facet>
+					<h:outputText value="#{foo.intField}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="dateField" />
+					</f:facet>
+					<h:outputText value="#{foo.dateField}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="creator" />
+					</f:facet>
+					<h:outputText value="#{fubarBean.getMaker(foo)}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="createDate" />
+					</f:facet>
+					<h:outputText value="#{foo.createDate}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="modifiedDate" />
+					</f:facet>
+					<h:outputText value="#{foo.modifiedDate}" />
+				</h:column>
+			</h:dataTable>
+		</ui:fragment>
+
+		<ui:fragment rendered="#{fubarBean.updatePermitted}">
+			<h:commandButton action="#{fubarBean.doUpdateFoos}"
+				value="update foos" />
+		</ui:fragment>
+
+		<ui:fragment rendered="#{fubarBean.deletePermitted}">
+			<h:commandButton action="#{fubarBean.doDeleteFoos}"
+				value="delete foos" />
+		</ui:fragment>
+
+		<ui:fragment rendered="#{fubarBean.addPermitted}">
+			<h:commandButton action="#{fubarBean.doAddFoo}" value="add a foo" />
+		</ui:fragment>
+
+	</h:form>
+
 </h:body>
 
 </html>

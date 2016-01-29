@@ -334,6 +334,12 @@ public class FooLocalServiceWrapper implements FooLocalService,
         return _fooLocalService.createFoo(companyId, groupId, userId);
     }
 
+    @Override
+    public void deleteAll()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        _fooLocalService.deleteAll();
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

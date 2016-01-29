@@ -8,9 +8,4 @@
 		<phase-listener>com.liferay.faces.util.lifecycle.ViewScopePhaseListener</phase-listener>
 	</lifecycle>
 
-	<application>
-		<!-- configure custom JSF messages -->
-		<message-bundle>Language</message-bundle>
-	</application>
-
 </faces-config>
