@@ -42,7 +42,7 @@ public class FubarBean {
 	public int getFoosCount() {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
-			return FooLocalServiceUtil.getFoosCount();
+			return FooLocalServiceUtil.getFoosCount(lfc.getScopeGroupId());
 		} catch (final SystemException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());
@@ -97,7 +97,7 @@ public class FubarBean {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		List<Foo> result = new ArrayList<Foo>();
 		try {
-			result = FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount());
+			result = FooLocalServiceUtil.getFoos(lfc.getScopeGroupId());
 		} catch (final SystemException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());

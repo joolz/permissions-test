@@ -2,7 +2,8 @@
 
 <service-builder package-path="nl.ou.test">
 	<namespace>fubar</namespace>
-	<entity name="Foo" uuid="true" local-service="true" remote-service="false">
+	<entity name="Foo" uuid="true" local-service="true"
+		remote-service="false">
 
 		<!-- PK fields -->
 
@@ -37,6 +38,15 @@
 
 		<finder name="booleanField" return-type="Collection">
 			<finder-column name="booleanField" />
+		</finder>
+
+		<finder name="group" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
+		<finder name="companyAndGroup" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
 		</finder>
 
 		<!-- References -->

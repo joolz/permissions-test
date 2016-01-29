@@ -667,6 +667,342 @@ public class FooUtil {
     }
 
     /**
+    * Returns all the foos where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @return the matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBygroup(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findBygroup(groupId);
+    }
+
+    /**
+    * Returns a range of all the foos where groupId = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param groupId the group ID
+    * @param start the lower bound of the range of foos
+    * @param end the upper bound of the range of foos (not inclusive)
+    * @return the range of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBygroup(
+        long groupId, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findBygroup(groupId, start, end);
+    }
+
+    /**
+    * Returns an ordered range of all the foos where groupId = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param groupId the group ID
+    * @param start the lower bound of the range of foos
+    * @param end the upper bound of the range of foos (not inclusive)
+    * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+    * @return the ordered range of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBygroup(
+        long groupId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .findBygroup(groupId, start, end, orderByComparator);
+    }
+
+    /**
+    * Returns the first foo in the ordered set where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching foo
+    * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo findBygroup_First(long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence().findBygroup_First(groupId, orderByComparator);
+    }
+
+    /**
+    * Returns the first foo in the ordered set where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching foo, or <code>null</code> if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo fetchBygroup_First(long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchBygroup_First(groupId, orderByComparator);
+    }
+
+    /**
+    * Returns the last foo in the ordered set where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching foo
+    * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo findBygroup_Last(long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence().findBygroup_Last(groupId, orderByComparator);
+    }
+
+    /**
+    * Returns the last foo in the ordered set where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching foo, or <code>null</code> if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo fetchBygroup_Last(long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchBygroup_Last(groupId, orderByComparator);
+    }
+
+    /**
+    * Returns the foos before and after the current foo in the ordered set where groupId = &#63;.
+    *
+    * @param fooId the primary key of the current foo
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the previous, current, and next foo
+    * @throws nl.ou.test.NoSuchFooException if a foo with the primary key could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo[] findBygroup_PrevAndNext(long fooId,
+        long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence()
+                   .findBygroup_PrevAndNext(fooId, groupId, orderByComparator);
+    }
+
+    /**
+    * Removes all the foos where groupId = &#63; from the database.
+    *
+    * @param groupId the group ID
+    * @throws SystemException if a system exception occurred
+    */
+    public static void removeBygroup(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getPersistence().removeBygroup(groupId);
+    }
+
+    /**
+    * Returns the number of foos where groupId = &#63;.
+    *
+    * @param groupId the group ID
+    * @return the number of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countBygroup(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countBygroup(groupId);
+    }
+
+    /**
+    * Returns all the foos where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @return the matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBycompanyAndGroup(
+        long companyId, long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findBycompanyAndGroup(companyId, groupId);
+    }
+
+    /**
+    * Returns a range of all the foos where companyId = &#63; and groupId = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param start the lower bound of the range of foos
+    * @param end the upper bound of the range of foos (not inclusive)
+    * @return the range of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBycompanyAndGroup(
+        long companyId, long groupId, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .findBycompanyAndGroup(companyId, groupId, start, end);
+    }
+
+    /**
+    * Returns an ordered range of all the foos where companyId = &#63; and groupId = &#63;.
+    *
+    * <p>
+    * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+    * </p>
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param start the lower bound of the range of foos
+    * @param end the upper bound of the range of foos (not inclusive)
+    * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+    * @return the ordered range of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static java.util.List<nl.ou.test.model.Foo> findBycompanyAndGroup(
+        long companyId, long groupId, int start, int end,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .findBycompanyAndGroup(companyId, groupId, start, end,
+            orderByComparator);
+    }
+
+    /**
+    * Returns the first foo in the ordered set where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching foo
+    * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo findBycompanyAndGroup_First(
+        long companyId, long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence()
+                   .findBycompanyAndGroup_First(companyId, groupId,
+            orderByComparator);
+    }
+
+    /**
+    * Returns the first foo in the ordered set where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the first matching foo, or <code>null</code> if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo fetchBycompanyAndGroup_First(
+        long companyId, long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .fetchBycompanyAndGroup_First(companyId, groupId,
+            orderByComparator);
+    }
+
+    /**
+    * Returns the last foo in the ordered set where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching foo
+    * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo findBycompanyAndGroup_Last(
+        long companyId, long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence()
+                   .findBycompanyAndGroup_Last(companyId, groupId,
+            orderByComparator);
+    }
+
+    /**
+    * Returns the last foo in the ordered set where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the last matching foo, or <code>null</code> if a matching foo could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo fetchBycompanyAndGroup_Last(
+        long companyId, long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence()
+                   .fetchBycompanyAndGroup_Last(companyId, groupId,
+            orderByComparator);
+    }
+
+    /**
+    * Returns the foos before and after the current foo in the ordered set where companyId = &#63; and groupId = &#63;.
+    *
+    * @param fooId the primary key of the current foo
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+    * @return the previous, current, and next foo
+    * @throws nl.ou.test.NoSuchFooException if a foo with the primary key could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static nl.ou.test.model.Foo[] findBycompanyAndGroup_PrevAndNext(
+        long fooId, long companyId, long groupId,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException,
+            nl.ou.test.NoSuchFooException {
+        return getPersistence()
+                   .findBycompanyAndGroup_PrevAndNext(fooId, companyId,
+            groupId, orderByComparator);
+    }
+
+    /**
+    * Removes all the foos where companyId = &#63; and groupId = &#63; from the database.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @throws SystemException if a system exception occurred
+    */
+    public static void removeBycompanyAndGroup(long companyId, long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        getPersistence().removeBycompanyAndGroup(companyId, groupId);
+    }
+
+    /**
+    * Returns the number of foos where companyId = &#63; and groupId = &#63;.
+    *
+    * @param companyId the company ID
+    * @param groupId the group ID
+    * @return the number of matching foos
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countBycompanyAndGroup(long companyId, long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countBycompanyAndGroup(companyId, groupId);
+    }
+
+    /**
     * Caches the foo in the entity cache if it is enabled.
     *
     * @param foo the foo

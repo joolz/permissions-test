@@ -340,6 +340,18 @@ public class FooLocalServiceWrapper implements FooLocalService,
         _fooLocalService.deleteAll();
     }
 
+    @Override
+    public int getFoosCount(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _fooLocalService.getFoosCount(groupId);
+    }
+
+    @Override
+    public java.util.List<nl.ou.test.model.Foo> getFoos(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _fooLocalService.getFoos(groupId);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

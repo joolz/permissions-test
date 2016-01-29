@@ -325,6 +325,16 @@ public class FooLocalServiceUtil {
         getService().deleteAll();
     }
 
+    public static int getFoosCount(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getFoosCount(groupId);
+    }
+
+    public static java.util.List<nl.ou.test.model.Foo> getFoos(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().getFoos(groupId);
+    }
+
     public static void clearService() {
         _service = null;
     }

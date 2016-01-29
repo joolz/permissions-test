@@ -65,6 +65,10 @@ public class FooLocalServiceClpInvoker {
     private String[] _methodParameterTypes58;
     private String _methodName59;
     private String[] _methodParameterTypes59;
+    private String _methodName60;
+    private String[] _methodParameterTypes60;
+    private String _methodName61;
+    private String[] _methodParameterTypes61;
 
     public FooLocalServiceClpInvoker() {
         _methodName0 = "addFoo";
@@ -190,6 +194,14 @@ public class FooLocalServiceClpInvoker {
         _methodName59 = "deleteAll";
 
         _methodParameterTypes59 = new String[] {  };
+
+        _methodName60 = "getFoosCount";
+
+        _methodParameterTypes60 = new String[] { "long" };
+
+        _methodName61 = "getFoos";
+
+        _methodParameterTypes61 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -349,6 +361,16 @@ public class FooLocalServiceClpInvoker {
             FooLocalServiceUtil.deleteAll();
 
             return null;
+        }
+
+        if (_methodName60.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+            return FooLocalServiceUtil.getFoosCount(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName61.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+            return FooLocalServiceUtil.getFoos(((Long) arguments[0]).longValue());
         }
 
         throw new UnsupportedOperationException();

@@ -156,6 +156,51 @@ public class FooPersistenceImpl extends BasePersistenceImpl<Foo>
             FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBybooleanField",
             new String[] { Boolean.class.getName() });
     private static final String _FINDER_COLUMN_BOOLEANFIELD_BOOLEANFIELD_2 = "foo.booleanField = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUP = new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, FooImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBygroup",
+            new String[] {
+                Long.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUP = new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, FooImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBygroup",
+            new String[] { Long.class.getName() },
+            FooModelImpl.GROUPID_COLUMN_BITMASK |
+            FooModelImpl.STRINGFIELD_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_GROUP = new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBygroup",
+            new String[] { Long.class.getName() });
+    private static final String _FINDER_COLUMN_GROUP_GROUPID_2 = "foo.groupId = ?";
+    public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYANDGROUP =
+        new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, FooImpl.class,
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBycompanyAndGroup",
+            new String[] {
+                Long.class.getName(), Long.class.getName(),
+                
+            Integer.class.getName(), Integer.class.getName(),
+                OrderByComparator.class.getName()
+            });
+    public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYANDGROUP =
+        new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, FooImpl.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBycompanyAndGroup",
+            new String[] { Long.class.getName(), Long.class.getName() },
+            FooModelImpl.COMPANYID_COLUMN_BITMASK |
+            FooModelImpl.GROUPID_COLUMN_BITMASK |
+            FooModelImpl.STRINGFIELD_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYANDGROUP = new FinderPath(FooModelImpl.ENTITY_CACHE_ENABLED,
+            FooModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+            "countBycompanyAndGroup",
+            new String[] { Long.class.getName(), Long.class.getName() });
+    private static final String _FINDER_COLUMN_COMPANYANDGROUP_COMPANYID_2 = "foo.companyId = ? AND ";
+    private static final String _FINDER_COLUMN_COMPANYANDGROUP_GROUPID_2 = "foo.groupId = ?";
     private static final String _SQL_SELECT_FOO = "SELECT foo FROM Foo foo";
     private static final String _SQL_SELECT_FOO_WHERE = "SELECT foo FROM Foo foo WHERE ";
     private static final String _SQL_COUNT_FOO = "SELECT COUNT(foo) FROM Foo foo";
@@ -1882,6 +1927,938 @@ public class FooPersistenceImpl extends BasePersistenceImpl<Foo>
     }
 
     /**
+     * Returns all the foos where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @return the matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBygroup(long groupId) throws SystemException {
+        return findBygroup(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the foos where groupId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param groupId the group ID
+     * @param start the lower bound of the range of foos
+     * @param end the upper bound of the range of foos (not inclusive)
+     * @return the range of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBygroup(long groupId, int start, int end)
+        throws SystemException {
+        return findBygroup(groupId, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the foos where groupId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param groupId the group ID
+     * @param start the lower bound of the range of foos
+     * @param end the upper bound of the range of foos (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBygroup(long groupId, int start, int end,
+        OrderByComparator orderByComparator) throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUP;
+            finderArgs = new Object[] { groupId };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUP;
+            finderArgs = new Object[] { groupId, start, end, orderByComparator };
+        }
+
+        List<Foo> list = (List<Foo>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Foo foo : list) {
+                if ((groupId != foo.getGroupId())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(3 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(3);
+            }
+
+            query.append(_SQL_SELECT_FOO_WHERE);
+
+            query.append(_FINDER_COLUMN_GROUP_GROUPID_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(FooModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(groupId);
+
+                if (!pagination) {
+                    list = (List<Foo>) QueryUtil.list(q, getDialect(), start,
+                            end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Foo>(list);
+                } else {
+                    list = (List<Foo>) QueryUtil.list(q, getDialect(), start,
+                            end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first foo in the ordered set where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching foo
+     * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo findBygroup_First(long groupId,
+        OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = fetchBygroup_First(groupId, orderByComparator);
+
+        if (foo != null) {
+            return foo;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("groupId=");
+        msg.append(groupId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchFooException(msg.toString());
+    }
+
+    /**
+     * Returns the first foo in the ordered set where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching foo, or <code>null</code> if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo fetchBygroup_First(long groupId,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Foo> list = findBygroup(groupId, 0, 1, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last foo in the ordered set where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching foo
+     * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo findBygroup_Last(long groupId,
+        OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = fetchBygroup_Last(groupId, orderByComparator);
+
+        if (foo != null) {
+            return foo;
+        }
+
+        StringBundler msg = new StringBundler(4);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("groupId=");
+        msg.append(groupId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchFooException(msg.toString());
+    }
+
+    /**
+     * Returns the last foo in the ordered set where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching foo, or <code>null</code> if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo fetchBygroup_Last(long groupId,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countBygroup(groupId);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Foo> list = findBygroup(groupId, count - 1, count,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the foos before and after the current foo in the ordered set where groupId = &#63;.
+     *
+     * @param fooId the primary key of the current foo
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next foo
+     * @throws nl.ou.test.NoSuchFooException if a foo with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo[] findBygroup_PrevAndNext(long fooId, long groupId,
+        OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = findByPrimaryKey(fooId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Foo[] array = new FooImpl[3];
+
+            array[0] = getBygroup_PrevAndNext(session, foo, groupId,
+                    orderByComparator, true);
+
+            array[1] = foo;
+
+            array[2] = getBygroup_PrevAndNext(session, foo, groupId,
+                    orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Foo getBygroup_PrevAndNext(Session session, Foo foo,
+        long groupId, OrderByComparator orderByComparator, boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_FOO_WHERE);
+
+        query.append(_FINDER_COLUMN_GROUP_GROUPID_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(FooModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(groupId);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(foo);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Foo> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the foos where groupId = &#63; from the database.
+     *
+     * @param groupId the group ID
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeBygroup(long groupId) throws SystemException {
+        for (Foo foo : findBygroup(groupId, QueryUtil.ALL_POS,
+                QueryUtil.ALL_POS, null)) {
+            remove(foo);
+        }
+    }
+
+    /**
+     * Returns the number of foos where groupId = &#63;.
+     *
+     * @param groupId the group ID
+     * @return the number of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countBygroup(long groupId) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUP;
+
+        Object[] finderArgs = new Object[] { groupId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_FOO_WHERE);
+
+            query.append(_FINDER_COLUMN_GROUP_GROUPID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(groupId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
+     * Returns all the foos where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @return the matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBycompanyAndGroup(long companyId, long groupId)
+        throws SystemException {
+        return findBycompanyAndGroup(companyId, groupId, QueryUtil.ALL_POS,
+            QueryUtil.ALL_POS, null);
+    }
+
+    /**
+     * Returns a range of all the foos where companyId = &#63; and groupId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param start the lower bound of the range of foos
+     * @param end the upper bound of the range of foos (not inclusive)
+     * @return the range of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBycompanyAndGroup(long companyId, long groupId,
+        int start, int end) throws SystemException {
+        return findBycompanyAndGroup(companyId, groupId, start, end, null);
+    }
+
+    /**
+     * Returns an ordered range of all the foos where companyId = &#63; and groupId = &#63;.
+     *
+     * <p>
+     * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link nl.ou.test.model.impl.FooModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+     * </p>
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param start the lower bound of the range of foos
+     * @param end the upper bound of the range of foos (not inclusive)
+     * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+     * @return the ordered range of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public List<Foo> findBycompanyAndGroup(long companyId, long groupId,
+        int start, int end, OrderByComparator orderByComparator)
+        throws SystemException {
+        boolean pagination = true;
+        FinderPath finderPath = null;
+        Object[] finderArgs = null;
+
+        if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+                (orderByComparator == null)) {
+            pagination = false;
+            finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYANDGROUP;
+            finderArgs = new Object[] { companyId, groupId };
+        } else {
+            finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYANDGROUP;
+            finderArgs = new Object[] {
+                    companyId, groupId,
+                    
+                    start, end, orderByComparator
+                };
+        }
+
+        List<Foo> list = (List<Foo>) FinderCacheUtil.getResult(finderPath,
+                finderArgs, this);
+
+        if ((list != null) && !list.isEmpty()) {
+            for (Foo foo : list) {
+                if ((companyId != foo.getCompanyId()) ||
+                        (groupId != foo.getGroupId())) {
+                    list = null;
+
+                    break;
+                }
+            }
+        }
+
+        if (list == null) {
+            StringBundler query = null;
+
+            if (orderByComparator != null) {
+                query = new StringBundler(4 +
+                        (orderByComparator.getOrderByFields().length * 3));
+            } else {
+                query = new StringBundler(4);
+            }
+
+            query.append(_SQL_SELECT_FOO_WHERE);
+
+            query.append(_FINDER_COLUMN_COMPANYANDGROUP_COMPANYID_2);
+
+            query.append(_FINDER_COLUMN_COMPANYANDGROUP_GROUPID_2);
+
+            if (orderByComparator != null) {
+                appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+                    orderByComparator);
+            } else
+             if (pagination) {
+                query.append(FooModelImpl.ORDER_BY_JPQL);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(companyId);
+
+                qPos.add(groupId);
+
+                if (!pagination) {
+                    list = (List<Foo>) QueryUtil.list(q, getDialect(), start,
+                            end, false);
+
+                    Collections.sort(list);
+
+                    list = new UnmodifiableList<Foo>(list);
+                } else {
+                    list = (List<Foo>) QueryUtil.list(q, getDialect(), start,
+                            end);
+                }
+
+                cacheResult(list);
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, list);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return list;
+    }
+
+    /**
+     * Returns the first foo in the ordered set where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching foo
+     * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo findBycompanyAndGroup_First(long companyId, long groupId,
+        OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = fetchBycompanyAndGroup_First(companyId, groupId,
+                orderByComparator);
+
+        if (foo != null) {
+            return foo;
+        }
+
+        StringBundler msg = new StringBundler(6);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("companyId=");
+        msg.append(companyId);
+
+        msg.append(", groupId=");
+        msg.append(groupId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchFooException(msg.toString());
+    }
+
+    /**
+     * Returns the first foo in the ordered set where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the first matching foo, or <code>null</code> if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo fetchBycompanyAndGroup_First(long companyId, long groupId,
+        OrderByComparator orderByComparator) throws SystemException {
+        List<Foo> list = findBycompanyAndGroup(companyId, groupId, 0, 1,
+                orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last foo in the ordered set where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching foo
+     * @throws nl.ou.test.NoSuchFooException if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo findBycompanyAndGroup_Last(long companyId, long groupId,
+        OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = fetchBycompanyAndGroup_Last(companyId, groupId,
+                orderByComparator);
+
+        if (foo != null) {
+            return foo;
+        }
+
+        StringBundler msg = new StringBundler(6);
+
+        msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+        msg.append("companyId=");
+        msg.append(companyId);
+
+        msg.append(", groupId=");
+        msg.append(groupId);
+
+        msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+        throw new NoSuchFooException(msg.toString());
+    }
+
+    /**
+     * Returns the last foo in the ordered set where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the last matching foo, or <code>null</code> if a matching foo could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo fetchBycompanyAndGroup_Last(long companyId, long groupId,
+        OrderByComparator orderByComparator) throws SystemException {
+        int count = countBycompanyAndGroup(companyId, groupId);
+
+        if (count == 0) {
+            return null;
+        }
+
+        List<Foo> list = findBycompanyAndGroup(companyId, groupId, count - 1,
+                count, orderByComparator);
+
+        if (!list.isEmpty()) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the foos before and after the current foo in the ordered set where companyId = &#63; and groupId = &#63;.
+     *
+     * @param fooId the primary key of the current foo
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+     * @return the previous, current, and next foo
+     * @throws nl.ou.test.NoSuchFooException if a foo with the primary key could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Foo[] findBycompanyAndGroup_PrevAndNext(long fooId, long companyId,
+        long groupId, OrderByComparator orderByComparator)
+        throws NoSuchFooException, SystemException {
+        Foo foo = findByPrimaryKey(fooId);
+
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            Foo[] array = new FooImpl[3];
+
+            array[0] = getBycompanyAndGroup_PrevAndNext(session, foo,
+                    companyId, groupId, orderByComparator, true);
+
+            array[1] = foo;
+
+            array[2] = getBycompanyAndGroup_PrevAndNext(session, foo,
+                    companyId, groupId, orderByComparator, false);
+
+            return array;
+        } catch (Exception e) {
+            throw processException(e);
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    protected Foo getBycompanyAndGroup_PrevAndNext(Session session, Foo foo,
+        long companyId, long groupId, OrderByComparator orderByComparator,
+        boolean previous) {
+        StringBundler query = null;
+
+        if (orderByComparator != null) {
+            query = new StringBundler(6 +
+                    (orderByComparator.getOrderByFields().length * 6));
+        } else {
+            query = new StringBundler(3);
+        }
+
+        query.append(_SQL_SELECT_FOO_WHERE);
+
+        query.append(_FINDER_COLUMN_COMPANYANDGROUP_COMPANYID_2);
+
+        query.append(_FINDER_COLUMN_COMPANYANDGROUP_GROUPID_2);
+
+        if (orderByComparator != null) {
+            String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+            if (orderByConditionFields.length > 0) {
+                query.append(WHERE_AND);
+            }
+
+            for (int i = 0; i < orderByConditionFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByConditionFields[i]);
+
+                if ((i + 1) < orderByConditionFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN_HAS_NEXT);
+                    } else {
+                        query.append(WHERE_LESSER_THAN_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(WHERE_GREATER_THAN);
+                    } else {
+                        query.append(WHERE_LESSER_THAN);
+                    }
+                }
+            }
+
+            query.append(ORDER_BY_CLAUSE);
+
+            String[] orderByFields = orderByComparator.getOrderByFields();
+
+            for (int i = 0; i < orderByFields.length; i++) {
+                query.append(_ORDER_BY_ENTITY_ALIAS);
+                query.append(orderByFields[i]);
+
+                if ((i + 1) < orderByFields.length) {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC_HAS_NEXT);
+                    } else {
+                        query.append(ORDER_BY_DESC_HAS_NEXT);
+                    }
+                } else {
+                    if (orderByComparator.isAscending() ^ previous) {
+                        query.append(ORDER_BY_ASC);
+                    } else {
+                        query.append(ORDER_BY_DESC);
+                    }
+                }
+            }
+        } else {
+            query.append(FooModelImpl.ORDER_BY_JPQL);
+        }
+
+        String sql = query.toString();
+
+        Query q = session.createQuery(sql);
+
+        q.setFirstResult(0);
+        q.setMaxResults(2);
+
+        QueryPos qPos = QueryPos.getInstance(q);
+
+        qPos.add(companyId);
+
+        qPos.add(groupId);
+
+        if (orderByComparator != null) {
+            Object[] values = orderByComparator.getOrderByConditionValues(foo);
+
+            for (Object value : values) {
+                qPos.add(value);
+            }
+        }
+
+        List<Foo> list = q.list();
+
+        if (list.size() == 2) {
+            return list.get(1);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Removes all the foos where companyId = &#63; and groupId = &#63; from the database.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public void removeBycompanyAndGroup(long companyId, long groupId)
+        throws SystemException {
+        for (Foo foo : findBycompanyAndGroup(companyId, groupId,
+                QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+            remove(foo);
+        }
+    }
+
+    /**
+     * Returns the number of foos where companyId = &#63; and groupId = &#63;.
+     *
+     * @param companyId the company ID
+     * @param groupId the group ID
+     * @return the number of matching foos
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countBycompanyAndGroup(long companyId, long groupId)
+        throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYANDGROUP;
+
+        Object[] finderArgs = new Object[] { companyId, groupId };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_COUNT_FOO_WHERE);
+
+            query.append(_FINDER_COLUMN_COMPANYANDGROUP_COMPANYID_2);
+
+            query.append(_FINDER_COLUMN_COMPANYANDGROUP_GROUPID_2);
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                qPos.add(companyId);
+
+                qPos.add(groupId);
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the foo in the entity cache if it is enabled.
      *
      * @param foo the foo
@@ -2194,6 +3171,43 @@ public class FooPersistenceImpl extends BasePersistenceImpl<Foo>
                 FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_BOOLEANFIELD,
                     args);
                 FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_BOOLEANFIELD,
+                    args);
+            }
+
+            if ((fooModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUP.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] { fooModelImpl.getOriginalGroupId() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUP, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUP,
+                    args);
+
+                args = new Object[] { fooModelImpl.getGroupId() };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUP, args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUP,
+                    args);
+            }
+
+            if ((fooModelImpl.getColumnBitmask() &
+                    FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYANDGROUP.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] {
+                        fooModelImpl.getOriginalCompanyId(),
+                        fooModelImpl.getOriginalGroupId()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYANDGROUP,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYANDGROUP,
+                    args);
+
+                args = new Object[] {
+                        fooModelImpl.getCompanyId(), fooModelImpl.getGroupId()
+                    };
+
+                FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYANDGROUP,
+                    args);
+                FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYANDGROUP,
                     args);
             }
         }

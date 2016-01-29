@@ -56,6 +56,10 @@ public class FooLocalServiceClp implements FooLocalService {
     private String[] _methodParameterTypes23;
     private String _methodName24;
     private String[] _methodParameterTypes24;
+    private String _methodName25;
+    private String[] _methodParameterTypes25;
+    private String _methodName26;
+    private String[] _methodParameterTypes26;
 
     public FooLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -167,6 +171,14 @@ public class FooLocalServiceClp implements FooLocalService {
         _methodName24 = "deleteAll";
 
         _methodParameterTypes24 = new String[] {  };
+
+        _methodName25 = "getFoosCount";
+
+        _methodParameterTypes25 = new String[] { "long" };
+
+        _methodName26 = "getFoos";
+
+        _methodParameterTypes26 = new String[] { "long" };
     }
 
     @Override
@@ -840,5 +852,57 @@ public class FooLocalServiceClp implements FooLocalService {
                     " is not a valid exception");
             }
         }
+    }
+
+    @Override
+    public int getFoosCount(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName25,
+                    _methodParameterTypes25, new Object[] { groupId });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return ((Integer) returnObj).intValue();
+    }
+
+    @Override
+    public java.util.List<nl.ou.test.model.Foo> getFoos(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName26,
+                    _methodParameterTypes26, new Object[] { groupId });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<nl.ou.test.model.Foo>) ClpSerializer.translateOutput(returnObj);
     }
 }

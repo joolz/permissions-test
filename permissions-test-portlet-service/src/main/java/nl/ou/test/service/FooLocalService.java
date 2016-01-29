@@ -294,4 +294,12 @@ public interface FooLocalService extends BaseLocalService, InvokableLocalService
 
     public void deleteAll()
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public int getFoosCount(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<nl.ou.test.model.Foo> getFoos(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

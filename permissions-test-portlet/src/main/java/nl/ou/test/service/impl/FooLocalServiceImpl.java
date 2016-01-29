@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.ResourceConstants;
 
 import java.util.Date;
+import java.util.List;
 
 import nl.ou.test.model.Foo;
 import nl.ou.test.service.base.FooLocalServiceBaseImpl;
@@ -101,7 +102,16 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 		return super.updateFoo(foo);
 	}
 
+	@Override
 	public void deleteAll() throws SystemException {
 		fooPersistence.removeAll();
+	}
+
+	public int getFoosCount(final long groupId) throws SystemException {
+		return fooPersistence.countBygroup(groupId);
+	}
+
+	public List<Foo> getFoos(final long groupId) throws SystemException {
+		return fooPersistence.findBygroup(groupId);
 	}
 }
