@@ -1,7 +1,11 @@
 package nl.ou.test.service.impl;
 
 import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.model.ResourceConstants;
 
 import java.util.Date;
 
@@ -34,6 +38,9 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 	 * nl.ou.test.service.FooLocalServiceUtil} to access the foo local service.
 	 */
 
+	private static final Log LOG = LogFactoryUtil.getLog(FooLocalServiceImpl.class);
+
+	@Override
 	public Foo createFoo(final long companyId, final long groupId, final long userId) {
 		Foo result = null;
 		try {
@@ -44,9 +51,53 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 			final Date now = new Date();
 			result.setCreateDate(now);
 			result.setModifiedDate(now);
+			LOG.debug("Created foo " + result.getFooId());
 		} catch (final SystemException e) {
 
 		}
 		return result;
 	}
+
+	@Override
+	public Foo addFoo(final Foo foo) throws SystemException {
+		LOG.debug("Add Foo " + foo.getFooId());
+		final Foo result = super.addFoo(foo);
+		try {
+			LOG.debug("Add resource for Foo " + foo.getFooId());
+			resourceLocalService.addResources(foo.getCompanyId(), foo.getGroupId(), foo.getUserId(),
+					Foo.class.getName(), foo.getFooId(), false, true, false);
+		} catch (final PortalException e) {
+			LOG.error(e);
+		}
+		return result;
+	}
+
+	@Override
+	public Foo deleteFoo(final Foo foo) throws SystemException {
+		LOG.debug("Delete Foo " + foo.getFooId());
+		final Foo result = super.deleteFoo(foo);
+		try {
+			LOG.debug("Delete resoure for Foo " + result.getFooId());
+			resourceLocalService.deleteResource(result.getCompanyId(), Foo.class.getName(),
+					ResourceConstants.SCOPE_INDIVIDUAL, result.getFooId());
+		} catch (final PortalException e) {
+			LOG.error(e);
+		}
+		return result;
+	}
+
+	@Override
+	public Foo deleteFoo(final long fooId) throws PortalException, SystemException {
+		final Foo result = super.deleteFoo(fooId);
+		try {
+			LOG.debug("Delete resoure for Foo " + result.getFooId());
+			resourceLocalService.deleteResource(result.getCompanyId(), Foo.class.getName(),
+					ResourceConstants.SCOPE_INDIVIDUAL, result.getFooId());
+		} catch (final PortalException e) {
+			LOG.error(e);
+		}
+		return result;
+	}
+
+
 }

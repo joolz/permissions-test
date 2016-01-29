@@ -10,7 +10,8 @@
 <h:head />
 
 <h:body>
-	<h:outputText value="Total number of Foo's: #{fubarBean.someValue}" />
+	<h:outputText rendered="#{fubarBean.viewPermitted}" value="Total number of Foo's: #{fubarBean.someValue}" />
+	<h:outputText rendered="#{not fubarBean.viewPermitted}" value="View of model not permitted" />
 </h:body>
 
 </html>

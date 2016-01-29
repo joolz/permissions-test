@@ -5,6 +5,9 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionThreadLocal;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -17,16 +20,18 @@ import nl.ou.test.service.FooLocalServiceUtil;
 @ViewScoped
 public class FubarBean {
 	private static final Log LOG = LogFactoryUtil.getLog(FubarBean.class);
+	public static final String VIEW_PERMISSION = "VIEW_FOO";
+	public static final String MODEL_NAME = "nl.ou.test.model.Foo";
 
 	@PostConstruct
 	private void init() {
 		LOG.debug("PostConstruct");
+		createDefaultFoo();
 	}
 
 	public int getSomeValue() {
 		LOG.debug("getTotal");
 		try {
-			createDefaultFoo();
 			return FooLocalServiceUtil.getFoosCount();
 		} catch (final SystemException e) {
 			LOG.error(e);
@@ -53,4 +58,26 @@ public class FubarBean {
 			LOG.error(e);
 		}
 	}
+
+	public boolean isViewPermitted() {
+		boolean result = false;
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
+		try {
+			final PermissionChecker pc = getPermissionChecker();
+			result = pc.hasPermission(lfc.getScopeGroupId(), MODEL_NAME, lfc.getScopeGroupId(), VIEW_PERMISSION);
+		} catch (final PrincipalException e) {
+			LOG.error(e);
+		}
+		LOG.debug(VIEW_PERMISSION + " permission for user " + lfc.getUser().getFullName() + " is " + result);
+		return result;
+	}
+
+	private PermissionChecker getPermissionChecker() throws PrincipalException {
+		final PermissionChecker permissionChecker = PermissionThreadLocal.getPermissionChecker();
+		if (permissionChecker == null) {
+			throw new PrincipalException("PermissionChecker not initialized");
+		}
+		return permissionChecker;
+	}
+
 }
