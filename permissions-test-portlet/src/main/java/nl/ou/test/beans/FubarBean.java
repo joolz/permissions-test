@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.permission.PermissionChecker;
@@ -40,14 +41,23 @@ public class FubarBean {
 	}
 
 	public int getFoosCount() {
+		int result = GetterUtil.DEFAULT_INTEGER;
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		try {
-			return FooLocalServiceUtil.getFoosCount(lfc.getScopeGroupId());
-		} catch (final SystemException e) {
+			if (lfc.getScopeGroup().isGuest()) {
+				for (final Group site : lfc.getUser().getMySiteGroups()) {
+					if (isViewPermitted(site.getGroupId())) {
+						result += FooLocalServiceUtil.getFoos(site.getGroupId()).size();
+					}
+				}
+			} else {
+				result = FooLocalServiceUtil.getFoosCount(lfc.getScopeGroupId());
+			}
+		} catch (final SystemException | PortalException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());
 		}
-		return GetterUtil.DEFAULT_INTEGER;
+		return result;
 	}
 
 	private PermissionChecker getPermissionChecker() throws PrincipalException {
@@ -76,6 +86,22 @@ public class FubarBean {
 		return isPermitted(DELETE_PERMISSION);
 	}
 
+	public boolean isViewPermitted(final long groupId) {
+		return isPermitted(VIEW_PERMISSION, groupId);
+	}
+
+	public boolean isUpdatePermitted(final long groupId) {
+		return isPermitted(UPDATE_PERMISSION, groupId);
+	}
+
+	public boolean isAddPermitted(final long groupId) {
+		return isPermitted(ADD_PERMISSION, groupId);
+	}
+
+	public boolean isDeletePermitted(final long groupId) {
+		return isPermitted(DELETE_PERMISSION, groupId);
+	}
+
 	private boolean isPermitted(final String permission) {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
 		boolean permitted = false;
@@ -93,16 +119,47 @@ public class FubarBean {
 		return permitted;
 	}
 
+	private boolean isPermitted(final String permission, final long groupId) {
+		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
+		boolean permitted = false;
+		try {
+			final PermissionChecker pc = getPermissionChecker();
+			permitted = pc.hasPermission(groupId, MODEL_NAME, groupId, permission);
+		} catch (final PrincipalException e) {
+			LOG.error(e);
+			lfc.addGlobalErrorMessage(e.getMessage());
+		}
+
+		LOG.debug("Permission " + permission + " for user " + lfc.getUser().getFullName() + ", group " + groupId
+				+ " is " + permitted);
+
+		return permitted;
+	}
+
+	/**
+	 * Get the foos of the current site the user has view permission to. When
+	 * current site is guest (which acts as an aggregator site), get foos from
+	 * all sites the user is a member of and has the view permission.
+	 *
+	 * @return foos
+	 */
 	public List<Foo> getFoos() {
 		final LiferayFacesContext lfc = LiferayFacesContext.getInstance();
+
+		LOG.debug("ScopeGroup is " + lfc.getScopeGroup().getName());
+
 		List<Foo> result = new ArrayList<Foo>();
 		try {
 			if (lfc.getScopeGroup().isGuest()) {
-				result = FooLocalServiceUtil.getFoos(0, FooLocalServiceUtil.getFoosCount());
+				for (final Group site : lfc.getUser().getMySiteGroups()) {
+					if (isViewPermitted(site.getGroupId())) {
+						result.addAll(FooLocalServiceUtil.getFoos(site.getGroupId()));
+					}
+				}
 			} else {
 				result = FooLocalServiceUtil.getFoos(lfc.getScopeGroupId());
 			}
-		} catch (final SystemException e) {
+		} catch (final SystemException | PortalException e) {
 			LOG.error(e);
 			lfc.addGlobalErrorMessage(e.getMessage());
 		}
